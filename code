@@ -1,0 +1,27 @@
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+
+print("Zadajte email")
+gmail = input()
+print("Zadajte heslo")
+heslo = input()
+
+driver = webdriver.Firefox() #nacitanie webdriveru firefox s geckodriverom
+driver.get("http://gmail.com") #adresat
+
+
+
+email = driver.find_element(By.ID, "identifierId")  #najdenie v html idcko ktore zodpoveda idcku boxu na email
+driver.implicitly_wait(5) 
+email.send_keys(gmail) #vlozenie inputu z klavesnice
+email.send_keys(Keys.ENTER) #stlacenie virtualneho enteru pomocou Keys
+
+heslo = driver.find_element(By.ID, "passwordNext")  
+driver.implicitly_wait(3)
+
+heslo.send_keys(heslo)  #google pravidla zakazuju automative framework, ucet google na ktory sa chceme
+                        #dostat musi mat povolene less secure apps, inak sa dopustime porusenia pravidiel
+                        #a je mozne zablokovanie ip adresy, ucty spojene snim
+heslo.send_keys(Keys.ENTER)
